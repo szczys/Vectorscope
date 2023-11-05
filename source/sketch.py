@@ -151,8 +151,8 @@ def menu(key):       # exit and return to menu
                 ostentus_i2c.fifo_put_point(coord, col)
     ostentus_i2c.fifo_finalize_samples()
 
-    while(True):
-        time.sleep(1000)
+    while(ostentus_i2c.outgoing_data_available()):
+        time.sleep(1)
 
 
 

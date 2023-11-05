@@ -142,7 +142,6 @@ def encode_point_for_upload(x, y, color):
     return (coord & 0x00FF, coord >> 8)
 
 def menu(key):       # exit and return to menu
-    ostentus_i2c.init()
     ostentus_i2c.fifo_init_samples()
     for i,m in enumerate(model):
         for j,n in enumerate(m):

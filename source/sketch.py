@@ -1,3 +1,4 @@
+import time
 import screennorm
 import keyboardcb
 import keyleds
@@ -5,6 +6,7 @@ import joystick
 import vectoros
 from vos_state import vos_state
 import gc9a01
+import ostentus_i2c
 
 # little etch-a-sketch demo
 
@@ -121,7 +123,40 @@ def cls(key):
     fill_model(gc9a01.WHITE)
     cursor()
 
+def encode_point_for_upload(x, y, color):
+    x_high = (x << 10) & 0b1111110000000000
+    y_mid = (y << 4) & 0b0000001111110000
+    coord = x_high | y_mid
+    if color == gc9a01.RED:
+        coord |= 1
+    elif color == gc9a01.GREEN:
+        coord |= 2
+    elif color == gc9a01.BLUE:
+        coord |= 3
+    elif color == gc9a01.BLACK:
+        coord |= 4
+    else:
+        coord |= 0
+
+    print(coord >> 8, coord & 0x00FF)
+    return (coord & 0x00FF, coord >> 8)
+
 def menu(key):       # exit and return to menu
+    ostentus_i2c.init()
+    ostentus_i2c.fifo_init_samples()
+    for i,m in enumerate(model):
+        for j,n in enumerate(m):
+            if n != gc9a01.WHITE:
+                print(i,j,n)
+                coord, col = encode_point_for_upload(i, j, n)
+                ostentus_i2c.fifo_put_point(coord, col)
+    ostentus_i2c.fifo_finalize_samples()
+
+    while(True):
+        time.sleep(1000)
+
+
+
     global stopflag
     print("menu")
     if vos_state.active:

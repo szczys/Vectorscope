@@ -28,15 +28,9 @@ BACKGROUND=2
 TEXTXY=3
 
 slides=[
-        [ IMAGE, "pl_mercury.jpg" ],
-        [ IMAGE, "pl_venus.jpg" ],
-        [ IMAGE, "pl_earth.jpg" ],
-        [ IMAGE, "pl_moon.jpg" ],        
-        [ IMAGE, "pl_mars.jpg" ],
-        [ IMAGE, "pl_jupiter.jpg" ],
-        [ IMAGE, "pl_saturn.jpg" ],
-        [ IMAGE, "pl_uranus.jpg" ],
-        [ IMAGE, "pl_neptune.jpg" ],
+        [ IMAGE, "pl_mahler.jpg" ],
+        [ IMAGE, "golioth.jpg" ],
+        [ IMAGE, "szczys.jpg" ],
        ]
 
 # get next slide
